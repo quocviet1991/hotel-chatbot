@@ -8,10 +8,13 @@ export default async function handler(req, res) {
   const userMsg = messages[messages.length - 1].content;
 
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': process.env.GEMINI_API_KEY
+      },
       body: JSON.stringify({
         system_instruction: { parts: [{ text: system }] },
         contents: [{ role: 'user', parts: [{ text: userMsg }] }]
@@ -20,10 +23,8 @@ export default async function handler(req, res) {
   );
 
   const data = await response.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text 
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text
     || 'Xin lỗi, vui lòng thử lại.';
 
-  res.status(200).json({
-    content: [{ type: 'text', text }]
-  });
+  res.status(200).json({ content: [{ type: 'text', text }] });
 }
