@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`
     },
     body: JSON.stringify({
-      model: 'google/gemma-3-27b-it:free',
+      model: 'openrouter/free',
       messages: [
         { role: 'system', content: system },
         ...messages
