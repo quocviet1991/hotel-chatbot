@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`
     },
     body: JSON.stringify({
-      model: 'google/gemini-2.0-flash-exp:free',
+      model: 'google/gemma-3-27b-it:free',
       messages: [
         { role: 'system', content: system },
         ...messages
